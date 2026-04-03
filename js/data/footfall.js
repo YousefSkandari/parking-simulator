@@ -1,5 +1,14 @@
 // Hourly footfall patterns based on Ealing BID data and TfL estimates
 // Values are people per hour passing through the town centre
+//
+// SOURCE: Ealing Broadway Shopping Centre reports 285,000 weekly visitors
+// (experientialspace.co.uk). Station: 13.7M entries/exits 2023/24 (ORR).
+// Hourly distribution follows standard UK town centre patterns per
+// Springboard/BRC footfall index shape, scaled to Ealing's known weekly total.
+//
+// NOTE: These represent street-level footfall relevant to parking demand,
+// not total shopping centre internal footfall. For government use, these
+// should be calibrated against actual Springboard counter data if available.
 
 export const FOOTFALL_PATTERNS = {
     ealingBroadway: {

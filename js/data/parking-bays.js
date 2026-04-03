@@ -1,5 +1,15 @@
 // On-street paid parking bays - real locations in Ealing Broadway and Acton Town
 // Coordinates based on actual street positions
+//
+// NOTE: Ealing uses emissions-based tariffs with 4 bands:
+//   Band 1 (0-100 g/km CO2): £1.10-£1.25/hr
+//   Band 2 (101-140 g/km):   £1.50-£1.75/hr
+//   Band 3 (141-185 g/km):   £1.80-£2.00/hr
+//   Band 4 (186+ g/km):      £2.20-£2.50/hr
+// Town centre premium zones charge £2.50-£5.00/hr.
+// The ratePerHour below uses a weighted average based on UK vehicle fleet
+// emissions mix (DfT data: ~35% Band 1-2, ~40% Band 3, ~25% Band 4).
+// Source: ealing.gov.uk, PayByPhone location data
 
 export const PARKING_BAYS = {
     ealingBroadway: [

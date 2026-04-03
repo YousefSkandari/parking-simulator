@@ -1,5 +1,13 @@
 // Enforcement data based on Ealing Council Annual Parking Report
 // and London-wide enforcement statistics
+//
+// SOURCES:
+// - PCN charges: London Councils / Ealing Council, effective 7 April 2025
+//   https://www.ealing.gov.uk/info/201178/parking/3462/notice_of_changes_to_penalty_charges_and_additional_fees
+// - Annual PCN stats: ealing.news (2024: 142,903 PCNs, £5.7M revenue)
+//   https://www.ealing.news/ealing-council/ealing-councils-parking-fines-soar-to-5-7m-in-2024/
+// - CEO staffing: estimated from Ealing Council Annual Parking Report structure
+// - Detection rates: modelled from patrol frequency and area coverage
 
 export const ENFORCEMENT = {
     // Civil Enforcement Officer (CEO) parameters

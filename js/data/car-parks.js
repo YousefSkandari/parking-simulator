@@ -61,16 +61,18 @@ export const CAR_PARKS = {
             coords: [51.5120, -0.3015],
             capacityWeekday: 465,   // 465 regular + 8 disabled + 9 motorcycle (Ealing Council data)
             capacityWeekend: 465,
-            openHours: '07:00-22:00',
+            openHours: '07:00-18:00',  // Mon-Sun per ealing.gov.uk
             rates: [
-                { maxHours: 1, charge: 1.50 },
-                { maxHours: 2, charge: 3.00 },
-                { maxHours: 3, charge: 4.50 },
-                { maxHours: 4, charge: 6.00 },
+                // Emissions-based: shown as weighted average (Band 3 mid-range)
+                // Actual: Band 1 £1.10/hr, Band 2 £1.50/hr, Band 3 £1.80/hr, Band 4 £2.20/hr
+                { maxHours: 1, charge: 1.80 },
+                { maxHours: 2, charge: 3.60 },
+                { maxHours: 3, charge: 5.40 },
+                { maxHours: 4, charge: 7.20 },
                 { maxHours: 24, charge: 12.00 }
             ],
-            access: 'Springbridge Road',
-            type: 'surface'
+            access: 'Springbridge Road, W5 2AB',
+            type: 'multi-storey'
         }
     ],
 

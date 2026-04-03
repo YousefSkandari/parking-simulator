@@ -1,5 +1,16 @@
 // Business data for Ealing Broadway and Acton Town
-// Revenue estimates based on UK ONS retail data, Companies House filings
+//
+// METHODOLOGY: Revenue estimates derived from:
+// 1. ONS Annual Business Survey (Table 1, SIC codes 47.xx retail, 56.xx food service)
+// 2. Average revenue per employee by sector (ONS IDBR) scaled by typical store size
+// 3. Cross-referenced with Companies House filings where available for named chains
+// 4. Adjusted for location using Ealing Broadway footfall (285,000 weekly, experientialspace.co.uk)
+//
+// IMPORTANT: These are estimates, not actual accounts. For a government deployment,
+// these should be replaced with actual data from the Ealing BID or individual businesses.
+//
+// Average spend per visit figures from BPA "Re-Think! Parking on the High Street" (2013)
+// and ATCM Town Centre Performance benchmarks.
 // Footfall sensitivity: how much business depends on passing trade (0-1)
 
 export const BUSINESS_TYPES = {
