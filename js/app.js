@@ -392,7 +392,7 @@ class App {
     }
 
     _areaLabel() {
-        return this.currentArea === 'ealingBroadway' ? 'Ealing Broadway' : 'Acton Town';
+        return this.currentArea === 'ealingBroadway' ? 'Ealing Broadway' : 'Acton (Uxbridge Road)';
     }
 }
 

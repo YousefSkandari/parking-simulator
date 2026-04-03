@@ -8,7 +8,7 @@ export const CONFIG = {
     // Map defaults
     MAP_CENTER: [51.5136, -0.3010], // Ealing Broadway
     MAP_ZOOM: 15,
-    ACTON_CENTER: [51.5025, -0.2715],
+    ACTON_CENTER: [51.5090, -0.2760],  // Uxbridge Road, Acton (near Town Hall)
 
     // Walking parameters
     MAX_WALKING_DISTANCE_M: 400,

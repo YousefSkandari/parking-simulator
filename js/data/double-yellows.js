@@ -90,48 +90,57 @@ export const DOUBLE_YELLOWS = {
         }
     ],
 
+    // Acton - Uxbridge Road (A4020) corridor
+    // Major A-road with extensive DYLs around junctions, bus stops, and bus lane sections
     actonTown: [
         {
             id: 'DYL-AT01',
-            street: 'High Street (south side)',
-            coords: [[51.5026, -0.2725], [51.5028, -0.2718], [51.5030, -0.2710]],
+            street: 'Uxbridge Road (Town Hall junction)',
+            coords: [[51.5087, -0.2712], [51.5088, -0.2718], [51.5089, -0.2724]],
             capacity: 5,
             nearestBusinesses: ['AT-BIZ-01', 'AT-BIZ-02']
         },
         {
             id: 'DYL-AT02',
-            street: 'High Street (north side)',
-            coords: [[51.5030, -0.2722], [51.5032, -0.2715], [51.5034, -0.2708]],
-            capacity: 5,
-            nearestBusinesses: ['AT-BIZ-03', 'AT-BIZ-04']
+            street: 'Uxbridge Road (south side, east)',
+            coords: [[51.5088, -0.2728], [51.5089, -0.2735], [51.5090, -0.2742]],
+            capacity: 6,
+            nearestBusinesses: ['AT-BIZ-03', 'AT-BIZ-05']
         },
         {
             id: 'DYL-AT03',
-            street: 'Acton Lane',
-            coords: [[51.5022, -0.2728], [51.5019, -0.2732], [51.5016, -0.2736]],
-            capacity: 4,
-            nearestBusinesses: ['AT-BIZ-05']
+            street: 'Uxbridge Road (north side, central)',
+            coords: [[51.5092, -0.2745], [51.5092, -0.2755], [51.5093, -0.2765]],
+            capacity: 5,
+            nearestBusinesses: ['AT-BIZ-06', 'AT-BIZ-12']
         },
         {
             id: 'DYL-AT04',
-            street: 'Churchfield Road (junction)',
-            coords: [[51.5034, -0.2698], [51.5036, -0.2693], [51.5038, -0.2688]],
+            street: 'Uxbridge Road (bus stop section)',
+            coords: [[51.5091, -0.2770], [51.5092, -0.2778], [51.5093, -0.2786]],
             capacity: 4,
-            nearestBusinesses: ['AT-BIZ-06', 'AT-BIZ-07']
-        },
-        {
-            id: 'DYL-AT05',
-            street: 'Gunnersbury Lane',
-            coords: [[51.5024, -0.2742], [51.5022, -0.2748], [51.5020, -0.2754]],
-            capacity: 3,
             nearestBusinesses: ['AT-BIZ-08']
         },
         {
+            id: 'DYL-AT05',
+            street: 'Horn Lane junction',
+            coords: [[51.5095, -0.2805], [51.5097, -0.2812], [51.5099, -0.2818]],
+            capacity: 4,
+            nearestBusinesses: ['AT-BIZ-08', 'AT-BIZ-09']
+        },
+        {
             id: 'DYL-AT06',
-            street: 'Market Place',
-            coords: [[51.5027, -0.2712], [51.5025, -0.2708]],
+            street: 'The Vale junction',
+            coords: [[51.5094, -0.2800], [51.5096, -0.2806]],
             capacity: 3,
-            nearestBusinesses: ['AT-BIZ-09', 'AT-BIZ-10']
+            nearestBusinesses: ['AT-BIZ-09']
+        },
+        {
+            id: 'DYL-AT07',
+            street: 'Salisbury Street (off Uxbridge Road)',
+            coords: [[51.5085, -0.2745], [51.5083, -0.2748], [51.5081, -0.2750]],
+            capacity: 3,
+            nearestBusinesses: ['AT-BIZ-14']
         }
     ]
 };

@@ -55,26 +55,27 @@ export const PARKING_BAYS = {
         { id: 'EB-SM02', coords: [51.5108, -0.3040], capacity: 4, street: "St Mary's Road", ratePerHour: 2.40, maxStayHours: 2, hours: '08:30-18:30', days: 'Mon-Sat' },
     ],
 
+    // Acton - Uxbridge Road (A4020) corridor
+    // Runs east-west between Acton Town Hall (~-0.2710) and Horn Lane/The Vale (~-0.2815)
+    // On-street bays interspersed between bus lanes, loading bays, and DYL sections
     actonTown: [
-        // High Street Acton
-        { id: 'AT-HS01', coords: [51.5028, -0.2720], capacity: 4, street: 'High Street', ratePerHour: 2.40, maxStayHours: 2, hours: '08:30-18:30', days: 'Mon-Sat' },
-        { id: 'AT-HS02', coords: [51.5030, -0.2710], capacity: 3, street: 'High Street', ratePerHour: 2.40, maxStayHours: 2, hours: '08:30-18:30', days: 'Mon-Sat' },
-        { id: 'AT-HS03', coords: [51.5032, -0.2700], capacity: 5, street: 'High Street', ratePerHour: 2.40, maxStayHours: 2, hours: '08:30-18:30', days: 'Mon-Sat' },
-        { id: 'AT-HS04', coords: [51.5025, -0.2730], capacity: 4, street: 'High Street', ratePerHour: 2.40, maxStayHours: 2, hours: '08:30-18:30', days: 'Mon-Sat' },
+        // Uxbridge Road - eastern section (near Town Hall / High Street junction)
+        { id: 'AT-UX01', coords: [51.5088, -0.2718], capacity: 4, street: 'Uxbridge Road (east)', ratePerHour: 2.40, maxStayHours: 2, hours: '08:30-18:30', days: 'Mon-Sat' },
+        { id: 'AT-UX02', coords: [51.5089, -0.2730], capacity: 3, street: 'Uxbridge Road (east)', ratePerHour: 2.40, maxStayHours: 2, hours: '08:30-18:30', days: 'Mon-Sat' },
+        { id: 'AT-UX03', coords: [51.5090, -0.2742], capacity: 5, street: 'Uxbridge Road (central)', ratePerHour: 2.40, maxStayHours: 2, hours: '08:30-18:30', days: 'Mon-Sat' },
 
-        // Acton Lane
-        { id: 'AT-AL01', coords: [51.5020, -0.2725], capacity: 3, street: 'Acton Lane', ratePerHour: 2.40, maxStayHours: 2, hours: '08:30-18:30', days: 'Mon-Sat' },
-        { id: 'AT-AL02', coords: [51.5015, -0.2730], capacity: 4, street: 'Acton Lane', ratePerHour: 2.40, maxStayHours: 2, hours: '08:30-18:30', days: 'Mon-Sat' },
+        // Uxbridge Road - central section
+        { id: 'AT-UX04', coords: [51.5091, -0.2755], capacity: 4, street: 'Uxbridge Road (central)', ratePerHour: 2.40, maxStayHours: 2, hours: '08:30-18:30', days: 'Mon-Sat' },
+        { id: 'AT-UX05', coords: [51.5092, -0.2768], capacity: 3, street: 'Uxbridge Road (central)', ratePerHour: 2.40, maxStayHours: 2, hours: '08:30-18:30', days: 'Mon-Sat' },
 
-        // Churchfield Road
-        { id: 'AT-CF01', coords: [51.5035, -0.2695], capacity: 3, street: 'Churchfield Road', ratePerHour: 2.40, maxStayHours: 2, hours: '08:30-18:30', days: 'Mon-Sat' },
-        { id: 'AT-CF02', coords: [51.5038, -0.2688], capacity: 4, street: 'Churchfield Road', ratePerHour: 2.40, maxStayHours: 2, hours: '08:30-18:30', days: 'Mon-Sat' },
+        // Uxbridge Road - western section (near Horn Lane / The Vale)
+        { id: 'AT-UX06', coords: [51.5093, -0.2785], capacity: 4, street: 'Uxbridge Road (west)', ratePerHour: 2.40, maxStayHours: 2, hours: '08:30-18:30', days: 'Mon-Sat' },
+        { id: 'AT-UX07', coords: [51.5094, -0.2798], capacity: 3, street: 'Uxbridge Road (west)', ratePerHour: 2.40, maxStayHours: 2, hours: '08:30-18:30', days: 'Mon-Sat' },
 
-        // Gunnersbury Lane
-        { id: 'AT-GL01', coords: [51.5022, -0.2745], capacity: 4, street: 'Gunnersbury Lane', ratePerHour: 2.40, maxStayHours: 2, hours: '08:30-18:30', days: 'Mon-Sat' },
-
-        // Market Place
-        { id: 'AT-MP01', coords: [51.5026, -0.2715], capacity: 5, street: 'Market Place', ratePerHour: 2.40, maxStayHours: 2, hours: '08:30-18:30', days: 'Mon-Sat' },
+        // Side streets off Uxbridge Road
+        { id: 'AT-HL01', coords: [51.5098, -0.2810], capacity: 4, street: 'Horn Lane', ratePerHour: 2.40, maxStayHours: 2, hours: '08:30-18:30', days: 'Mon-Sat' },
+        { id: 'AT-SL01', coords: [51.5082, -0.2748], capacity: 5, street: 'Salisbury Street', ratePerHour: 2.40, maxStayHours: 2, hours: '08:30-18:30', days: 'Mon-Sat' },
+        { id: 'AT-TV01', coords: [51.5096, -0.2808], capacity: 3, street: 'The Vale', ratePerHour: 2.40, maxStayHours: 2, hours: '08:30-18:30', days: 'Mon-Sat' },
     ]
 };
 

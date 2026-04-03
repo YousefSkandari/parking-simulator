@@ -122,32 +122,36 @@ export const BUSINESSES = {
         { id: 'EB-BIZ-28', name: 'Oxfam', type: T.CHARITY, coords: [51.5118, -0.2992], annualRevenue: 72000, employees: 2 },
     ],
 
+    // Acton - Uxbridge Road (A4020) corridor
+    // Businesses along the stretch between Town Hall and Horn Lane/The Vale
+    // Verified from youractonbid.co.uk, allinlondon.co.uk, actonw3.com
     actonTown: [
-        // Verified from youractonbid.co.uk, allinlondon.co.uk, actonw3.com
-        // Pubs
-        { id: 'AT-BIZ-01', name: 'The Rocket', type: T.PUB, coords: [51.5029, -0.2718], annualRevenue: 380000, employees: 10 },               // Confirmed pub
-        { id: 'AT-BIZ-02', name: 'The Station House', type: T.PUB, coords: [51.5027, -0.2722], annualRevenue: 320000, employees: 8 },          // Confirmed pub
-        { id: 'AT-BIZ-03', name: 'Good Value Cafe', type: T.CAFE, coords: [51.5031, -0.2714], annualRevenue: 120000, employees: 5 },           // Confirmed
-        { id: 'AT-BIZ-04', name: 'KFC Acton', type: T.TAKEAWAY, coords: [51.5033, -0.2706], annualRevenue: 650000, employees: 16 },            // Confirmed
+        // Food & Drink (along Uxbridge Road)
+        { id: 'AT-BIZ-01', name: 'The Rocket', type: T.PUB, coords: [51.5089, -0.2725], annualRevenue: 380000, employees: 10 },
+        { id: 'AT-BIZ-02', name: 'Duke of Sussex', type: T.PUB, coords: [51.5090, -0.2738], annualRevenue: 350000, employees: 8 },
+        { id: 'AT-BIZ-03', name: 'Good Value Cafe', type: T.CAFE, coords: [51.5089, -0.2732], annualRevenue: 120000, employees: 5 },
+        { id: 'AT-BIZ-04', name: 'KFC Acton', type: T.TAKEAWAY, coords: [51.5091, -0.2750], annualRevenue: 650000, employees: 16 },
 
-        // Retail (verified)
-        { id: 'AT-BIZ-05', name: 'Savers', type: T.PHARMACY, coords: [51.5020, -0.2728], annualRevenue: 180000, employees: 6 },               // Confirmed
-        { id: 'AT-BIZ-06', name: 'Poundland', type: T.RETAIL, coords: [51.5035, -0.2696], annualRevenue: 350000, employees: 12 },              // Confirmed
-        { id: 'AT-BIZ-07', name: 'Iceland', type: T.SUPERMARKET, coords: [51.5037, -0.2690], annualRevenue: 680000, employees: 15 },            // Confirmed
-        { id: 'AT-BIZ-16', name: 'Shoe Zone', type: T.RETAIL, coords: [51.5030, -0.2712], annualRevenue: 250000, employees: 5 },               // Confirmed
-        { id: 'AT-BIZ-17', name: 'Card Factory', type: T.RETAIL, coords: [51.5032, -0.2708], annualRevenue: 200000, employees: 4 },            // Confirmed
-        { id: 'AT-BIZ-18', name: 'Peacocks', type: T.RETAIL, coords: [51.5034, -0.2700], annualRevenue: 300000, employees: 8 },                // Confirmed
-        { id: 'AT-BIZ-19', name: 'Argos', type: T.RETAIL, coords: [51.5028, -0.2704], annualRevenue: 500000, employees: 10 },                  // Confirmed
+        // Retail (along Uxbridge Road)
+        { id: 'AT-BIZ-05', name: 'Savers', type: T.PHARMACY, coords: [51.5089, -0.2728], annualRevenue: 180000, employees: 6 },
+        { id: 'AT-BIZ-06', name: 'Poundland', type: T.RETAIL, coords: [51.5091, -0.2755], annualRevenue: 350000, employees: 12 },
+        { id: 'AT-BIZ-07', name: 'Iceland', type: T.SUPERMARKET, coords: [51.5092, -0.2762], annualRevenue: 680000, employees: 15 },
+        { id: 'AT-BIZ-16', name: 'Shoe Zone', type: T.RETAIL, coords: [51.5090, -0.2740], annualRevenue: 250000, employees: 5 },
+        { id: 'AT-BIZ-17', name: 'Card Factory', type: T.RETAIL, coords: [51.5090, -0.2745], annualRevenue: 200000, employees: 4 },
+        { id: 'AT-BIZ-18', name: 'Peacocks', type: T.RETAIL, coords: [51.5091, -0.2758], annualRevenue: 300000, employees: 8 },
+        { id: 'AT-BIZ-19', name: 'Argos', type: T.RETAIL, coords: [51.5092, -0.2770], annualRevenue: 500000, employees: 10 },
+        { id: 'AT-BIZ-21', name: 'Superdrug', type: T.PHARMACY, coords: [51.5090, -0.2748], annualRevenue: 280000, employees: 8 },
 
-        // Supermarkets
-        { id: 'AT-BIZ-08', name: 'Morrisons', type: T.SUPERMARKET, coords: [51.5036, -0.2688], annualRevenue: 3500000, employees: 50 },        // Full-format, ~£3-5M (Morrisons AR)
-        { id: 'AT-BIZ-09', name: 'Lidl', type: T.SUPERMARKET, coords: [51.5026, -0.2710], annualRevenue: 1800000, employees: 20 },              // Oaks Shopping Centre anchor
+        // Supermarkets (Morrisons is near Horn Lane, western end)
+        { id: 'AT-BIZ-08', name: 'Morrisons', type: T.SUPERMARKET, coords: [51.5096, -0.2810], annualRevenue: 3500000, employees: 50 },
+        { id: 'AT-BIZ-09', name: 'Lidl', type: T.SUPERMARKET, coords: [51.5093, -0.2790], annualRevenue: 1800000, employees: 20 },
+        { id: 'AT-BIZ-22', name: 'Tesco Express', type: T.SUPERMARKET, coords: [51.5088, -0.2720], annualRevenue: 1100000, employees: 12 },
 
         // Services & Other
-        { id: 'AT-BIZ-11', name: 'Acton Dry Cleaners', type: T.SERVICE, coords: [51.5028, -0.2700], annualRevenue: 95000, employees: 3 },
-        { id: 'AT-BIZ-12', name: 'Greggs Acton', type: T.TAKEAWAY, coords: [51.5030, -0.2708], annualRevenue: 767000, employees: 10 },         // Greggs AR 2024
-        { id: 'AT-BIZ-14', name: 'Boots Acton', type: T.PHARMACY, coords: [51.5025, -0.2716], annualRevenue: 480000, employees: 10 },          // Retail portion
-        { id: 'AT-BIZ-20', name: 'WHSmith', type: T.RETAIL, coords: [51.5029, -0.2715], annualRevenue: 280000, employees: 6 },                 // Confirmed
+        { id: 'AT-BIZ-11', name: 'Post Office', type: T.SERVICE, coords: [51.5091, -0.2752], annualRevenue: 150000, employees: 5 },
+        { id: 'AT-BIZ-12', name: 'Greggs Acton', type: T.TAKEAWAY, coords: [51.5090, -0.2742], annualRevenue: 767000, employees: 10 },          // Greggs AR 2024
+        { id: 'AT-BIZ-14', name: 'Boots Acton', type: T.PHARMACY, coords: [51.5089, -0.2735], annualRevenue: 480000, employees: 10 },
+        { id: 'AT-BIZ-20', name: 'WHSmith', type: T.RETAIL, coords: [51.5091, -0.2755], annualRevenue: 280000, employees: 6 },
     ]
 };
 

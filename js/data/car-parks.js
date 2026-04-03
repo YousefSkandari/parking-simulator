@@ -76,11 +76,12 @@ export const CAR_PARKS = {
         }
     ],
 
+    // Car parks serving Uxbridge Road, Acton corridor
     actonTown: [
         {
             id: 'CP-MORR',
             name: 'Morrisons Acton Car Park',
-            coords: [51.5035, -0.2690],
+            coords: [51.5097, -0.2812],   // Near Horn Lane / western end of Uxbridge Road
             capacityWeekday: 120,
             capacityWeekend: 120,
             openHours: '07:00-23:00',
@@ -89,36 +90,20 @@ export const CAR_PARKS = {
                 { maxHours: 3, charge: 3.00 },
                 { maxHours: 24, charge: 10.00 }
             ],
-            access: 'High Street',
+            access: 'Horn Lane / Princes Gardens',
             type: 'surface',
             freeWithPurchase: true,
             freeMaxHours: 2
         },
         {
-            id: 'CP-SAIN',
-            name: "Sainsbury's Acton Car Park",
-            coords: [51.5042, -0.2680],
-            capacityWeekday: 80,
-            capacityWeekend: 80,
-            openHours: '07:00-23:00',
-            rates: [
-                { maxHours: 1, charge: 0.00 },  // Free with purchase for 1 hour
-                { maxHours: 2, charge: 2.00 },
-                { maxHours: 24, charge: 8.00 }
-            ],
-            access: 'Churchfield Road',
-            type: 'surface',
-            freeWithPurchase: true,
-            freeMaxHours: 1
-        },
-        {
             id: 'CP-SALI',
             name: 'Salisbury Street Car Park',
-            coords: [51.5038, -0.2740],
+            coords: [51.5082, -0.2748],   // Just south of Uxbridge Road
             capacityWeekday: 62,   // 62 regular + 4 disabled + 4 motorcycle (Ealing Council data)
             capacityWeekend: 62,
             openHours: '07:00-18:00',
             rates: [
+                // Emissions-based (PayByPhone ref: 37208)
                 { maxHours: 1, charge: 1.25 },
                 { maxHours: 2, charge: 2.50 },
                 { maxHours: 4, charge: 5.00 },
@@ -128,17 +113,21 @@ export const CAR_PARKS = {
             type: 'surface'
         },
         {
-            id: 'CP-ACTS',
-            name: 'Acton Town Station Car Park',
-            coords: [51.5028, -0.2802],
-            capacityWeekday: 40,
-            capacityWeekend: 40,
-            openHours: '05:00-01:00',
+            id: 'CP-LIDL',
+            name: 'Lidl / Oaks Centre Car Park',
+            coords: [51.5094, -0.2792],   // Near western end
+            capacityWeekday: 60,
+            capacityWeekend: 60,
+            openHours: '07:00-22:00',
             rates: [
-                { maxHours: 24, charge: 8.50 }
+                { maxHours: 1.5, charge: 0.00 },  // Free for 90 minutes
+                { maxHours: 3, charge: 3.00 },
+                { maxHours: 24, charge: 10.00 }
             ],
-            access: 'Gunnersbury Lane',
-            type: 'surface'
+            access: 'Off Uxbridge Road',
+            type: 'surface',
+            freeWithPurchase: true,
+            freeMaxHours: 1.5
         }
     ]
 };
