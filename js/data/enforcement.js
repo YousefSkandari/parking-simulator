@@ -77,11 +77,14 @@ export const ENFORCEMENT = {
     },
 
     // Council parking revenue context (annual, borough-wide)
+    // Sources: ealing.news 2024 data, Ealing Council parking permits FOI
+    // NOTE: £5.7M is parking PCNs only. The widely-reported £23.5M figure
+    // includes moving traffic (bus lanes, box junctions, CCTV) which is separate.
     councilRevenue: {
-        totalParkingIncome: 28000000,  // ~£28M/year
-        pcnIncome: 15000000,           // ~£15M from PCNs
-        meterIncome: 8000000,          // ~£8M from meters/pay & display
-        permitIncome: 5000000          // ~£5M from permits
+        totalParkingIncome: 14500000,   // Estimated: parking PCNs + meters + permits
+        pcnIncome: 5716120,             // £5,716,120 in 2024 (parking PCNs only, verified)
+        meterIncome: 6000000,           // ~£6M estimated from meters/pay & display (unverified)
+        permitIncome: 2800000           // ~£2.8M/year (£11.33M from 106,830 permits over 2020-2024)
     }
 };
 

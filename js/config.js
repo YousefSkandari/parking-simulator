@@ -36,7 +36,7 @@ export const CONFIG = {
     PCN_LOWER_EARLY: 70,
 
     // On-street parking charges
-    ONSTREET_RATE_PER_HOUR: 3.40,  // Ealing Broadway area
+    ONSTREET_RATE_PER_HOUR: 2.40,  // Ealing weighted avg (emissions-based, 13 bands post-April 2025)
     ONSTREET_MAX_STAY_HOURS: 2,
 
     // Ealing Broadway Shopping Centre car park
