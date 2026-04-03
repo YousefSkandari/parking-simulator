@@ -65,6 +65,12 @@ export class AISummary {
         }
         html += `</div>`;
 
+        // Traffic & Safety analysis
+        html += this._generateTrafficSafety(results);
+
+        // Displacement analysis
+        html += this._generateDisplacement(results);
+
         // Trade-off analysis
         html += this._generateTradeoffs(results, baseline);
 
@@ -180,6 +186,65 @@ export class AISummary {
             parts.push(`Longer dwell time encourages more spending`);
         }
         return parts.length > 0 ? parts.join('. ') + '.' : 'Similar performance to baseline policy.';
+    }
+
+    _generateTrafficSafety(results) {
+        const withTraffic = results.filter(r => r.traffic);
+        if (withTraffic.length === 0) return '';
+
+        const safest = [...withTraffic].sort((a, b) => b.traffic.safetyScore - a.traffic.safetyScore)[0];
+        const riskiest = [...withTraffic].sort((a, b) => a.traffic.safetyScore - b.traffic.safetyScore)[0];
+
+        let html = `<div class="summary-section">
+            <h4>Traffic & Road Safety</h4>`;
+
+        if (withTraffic.length > 1 && safest.traffic.safetyScore !== riskiest.traffic.safetyScore) {
+            html += `<p><b>${safest.policyName}</b> scores highest for road safety
+                (${safest.traffic.safetyScore.toFixed(0)}/100) while <b>${riskiest.policyName}</b>
+                scores lowest (${riskiest.traffic.safetyScore.toFixed(0)}/100).</p>`;
+        }
+
+        for (const r of withTraffic.slice(0, 3)) {
+            const t = r.traffic;
+            html += `<p><b>${r.policyName}:</b> Avg congestion ${(t.avgCongestion * 100).toFixed(0)}%,
+                safety score ${t.safetyScore.toFixed(0)}/100,
+                ${t.junctionsAtRisk} junction${t.junctionsAtRisk !== 1 ? 's' : ''} at risk,
+                congestion cost £${this._fmt(t.dailyCongestionCost)}/day.</p>`;
+        }
+
+        html += `</div>`;
+        return html;
+    }
+
+    _generateDisplacement(results) {
+        const withDisp = results.filter(r => r.displacement && r.displacement.totalDeterred > 0);
+        if (withDisp.length === 0) return '';
+
+        let html = `<div class="summary-section">
+            <h4>Displacement Analysis</h4>
+            <p>Where do deterred drivers go instead?</p>`;
+
+        for (const r of withDisp.slice(0, 3)) {
+            const d = r.displacement;
+            html += `<div class="scenario-card" style="border-left: 3px solid ${r.policyColor}">
+                <div class="sc-header"><b>${r.policyName}</b> — ${d.totalDeterred} deterred drivers</div>
+                <div class="sc-metrics">
+                    <span>Leaked to competitors: <b>£${this._fmt(d.leakedToCompetitors)}</b></span>
+                    <span>Stayed home: ${d.stayedHome}</span>
+                </div>`;
+
+            if (d.breakdown.length > 0) {
+                html += `<div style="font-size:11px; margin-top:4px;">`;
+                for (const b of d.breakdown.slice(0, 4)) {
+                    html += `<span style="display:inline-block; margin-right:10px;">${b.name}: ${b.count} (${b.percent.toFixed(0)}%)</span>`;
+                }
+                html += `</div>`;
+            }
+            html += `</div>`;
+        }
+
+        html += `</div>`;
+        return html;
     }
 
     _generateTradeoffs(results, baseline) {

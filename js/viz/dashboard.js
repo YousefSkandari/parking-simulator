@@ -27,6 +27,27 @@ export class Dashboard {
         this._setKPI('kpi-lost-revenue', fmtGBP(result.lostRevenue));
         this._setKPI('kpi-lost-impact', fmtGBP(result.lostEconomicImpact));
 
+        // Enforcement cost KPIs
+        if (result.enforcementCost !== undefined) {
+            this._setKPI('kpi-enforcement-cost', fmtGBP(result.enforcementCost));
+            this._setKPI('kpi-net-council', fmtGBP(result.netCouncilRevenue));
+            this._setKPI('kpi-ceo-shifts', `${result.activeCEOShifts} shifts`);
+        }
+
+        // Traffic & Safety KPIs
+        if (result.traffic) {
+            this._setKPI('kpi-congestion', `${(result.traffic.avgCongestion * 100).toFixed(0)}%`);
+            this._setKPI('kpi-safety-score', `${result.traffic.safetyScore.toFixed(0)}/100`);
+            this._setKPI('kpi-junctions-risk', `${result.traffic.junctionsAtRisk}/${result.traffic.totalJunctions}`);
+            this._setKPI('kpi-congestion-cost', fmtGBP(result.traffic.dailyCongestionCost));
+        }
+
+        // Displacement KPIs
+        if (result.displacement) {
+            this._setKPI('kpi-leaked-revenue', fmtGBP(result.displacement.leakedToCompetitors));
+            this._setKPI('kpi-displacement', fmt(result.displacement.totalDeterred));
+        }
+
         // Update parking distribution bar
         const total = result.parkingDistribution.onstreet + result.parkingDistribution.carpark +
                       result.parkingDistribution.dyl + result.deterredDrivers;
@@ -66,6 +87,18 @@ export class Dashboard {
                 <tr><td>On-Street Parked</td>${results.map(r => `<td>${fmt(r.parkingDistribution.onstreet)}</td>`).join('')}</tr>
                 <tr><td>Car Park Used</td>${results.map(r => `<td>${fmt(r.parkingDistribution.carpark)}</td>`).join('')}</tr>
                 <tr><td>DYL Used</td>${results.map(r => `<td>${fmt(r.parkingDistribution.dyl)}</td>`).join('')}</tr>
+                <tr><td colspan="${results.length + 1}" style="background:var(--primary);color:white;text-align:center;font-weight:600;">Council Costs & Net Position</td></tr>
+                <tr><td>CEO Enforcement Cost</td>${results.map(r => `<td>£${fmt(r.enforcementCost || 0)}</td>`).join('')}</tr>
+                <tr><td>Active CEO Shifts</td>${results.map(r => `<td>${r.activeCEOShifts || '—'}</td>`).join('')}</tr>
+                <tr><td><b>Net Council Position</b></td>${results.map(r => `<td><b>£${fmt(r.netCouncilRevenue || 0)}</b></td>`).join('')}</tr>
+                <tr><td colspan="${results.length + 1}" style="background:var(--primary);color:white;text-align:center;font-weight:600;">Traffic & Safety</td></tr>
+                <tr><td>Avg Congestion</td>${results.map(r => `<td>${r.traffic ? (r.traffic.avgCongestion * 100).toFixed(0) + '%' : '—'}</td>`).join('')}</tr>
+                <tr><td>Road Safety Score</td>${results.map(r => `<td>${r.traffic ? r.traffic.safetyScore.toFixed(0) + '/100' : '—'}</td>`).join('')}</tr>
+                <tr><td>Junctions at Risk</td>${results.map(r => `<td>${r.traffic ? r.traffic.junctionsAtRisk : '—'}</td>`).join('')}</tr>
+                <tr><td>Congestion Cost</td>${results.map(r => `<td>${r.traffic ? '£' + fmt(r.traffic.dailyCongestionCost) : '—'}</td>`).join('')}</tr>
+                <tr><td colspan="${results.length + 1}" style="background:var(--primary);color:white;text-align:center;font-weight:600;">Displacement</td></tr>
+                <tr><td>Revenue Leaked</td>${results.map(r => `<td class="negative">${r.displacement ? '£' + fmt(r.displacement.leakedToCompetitors) : '—'}</td>`).join('')}</tr>
+                <tr><td>Drivers to Competitors</td>${results.map(r => `<td>${r.displacement ? fmt(r.displacement.totalDeterred - (r.displacement.stayedHome || 0)) : '—'}</td>`).join('')}</tr>
             </tbody>
         `;
         table.innerHTML = html;

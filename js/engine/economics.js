@@ -79,9 +79,24 @@ export class EconomicsEngine {
         const councilParkingRevenue = this.meterRevenue + this.carParkRevenue + this.pcnRevenue;
         this.businessRevenue = businessResults.totalRevenue;
 
+        // CEO enforcement costs
+        // Average CEO salary in London: ~£28,000/year (Ealing Council pay scales)
+        // With on-costs (NI, pension, uniform, equipment): ~£38,000/year
+        // Daily cost per CEO: £38,000 / 250 working days = £152/day
+        const CEO_DAILY_COST = 152;
+        // Number of active CEO-shifts depends on enforcement intensity
+        // Ealing Broadway: 5 CEO-shifts/day (2 morning, 2 afternoon, 1 evening)
+        // Acton: 2 CEO-shifts/day
+        const baseCEOShifts = 5; // For Ealing Broadway (simplified)
+        const activeCEOShifts = Math.round(baseCEOShifts * policy.enforcementIntensity);
+        const dailyEnforcementCost = activeCEOShifts * CEO_DAILY_COST;
+
+        // Net council position (revenue minus enforcement cost)
+        const netCouncilPosition = councilParkingRevenue - dailyEnforcementCost;
+
         // Local economic impact (with multiplier)
         const directEconomicActivity = this.businessRevenue + councilParkingRevenue;
-        const totalEconomicImpact = this.businessRevenue * CONFIG.LOCAL_MULTIPLIER + councilParkingRevenue;
+        const totalEconomicImpact = this.businessRevenue * CONFIG.LOCAL_MULTIPLIER + netCouncilPosition;
 
         // Lost revenue from deterred drivers
         const avgSpendPerDriver = this.parkedDrivers > 0 ?
@@ -101,10 +116,16 @@ export class EconomicsEngine {
 
             // Council revenue breakdown
             councilRevenue: councilParkingRevenue,
+            netCouncilRevenue: netCouncilPosition,
             meterRevenue: this.meterRevenue,
             carParkRevenue: this.carParkRevenue,
             pcnRevenue: this.pcnRevenue,
             pcnCount: this.pcnCount,
+
+            // Enforcement costs
+            enforcementCost: dailyEnforcementCost,
+            activeCEOShifts,
+            ceoDailyCost: CEO_DAILY_COST,
 
             // Driver metrics
             totalDrivers: this.driverCount,

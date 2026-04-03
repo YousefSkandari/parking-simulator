@@ -6,6 +6,8 @@ import { SeededRandom } from '../util/random.js';
 import { ParkingSystem } from './parking-system.js';
 import { BusinessSystem } from './agent-business.js';
 import { EconomicsEngine } from './economics.js';
+import { TrafficModel } from './traffic.js';
+import { DisplacementModel } from './displacement.js';
 import { createDriver, updateDriver, resetDriverIds, DRIVER_STATES } from './agent-driver.js';
 import { createCEO, updateCEO, generatePatrolRoutes, resetCeoIds } from './agent-ceo.js';
 import { PROFILE_DISTRIBUTION, PROFILE_DETAILS } from '../data/demographics.js';
@@ -24,6 +26,8 @@ export class Simulation {
         this.parkingSystem = new ParkingSystem(this.area);
         this.businessSystem = new BusinessSystem(this.area);
         this.economics = new EconomicsEngine();
+        this.trafficModel = new TrafficModel(this.area);
+        this.displacementModel = new DisplacementModel(this.area);
 
         this.simTime = 0;        // Minutes from start of day
         this.simHour = CONFIG.SIM_START_HOUR;
@@ -102,6 +106,10 @@ export class Simulation {
             // Move completed/deterred drivers out of active pool
             if (driver.state === DRIVER_STATES.LEFT || driver.state === DRIVER_STATES.DETERRED) {
                 this.economics.recordDriver(driver);
+                // Track where deterred drivers go (displacement)
+                if (driver.state === DRIVER_STATES.DETERRED) {
+                    this.displacementModel.recordDeterredDriver(driver, this.rng);
+                }
                 this.completedDrivers.push(driver);
                 this.drivers.splice(i, 1);
             }
@@ -125,10 +133,14 @@ export class Simulation {
             }
         }
 
+        // Update traffic model every tick
+        this.trafficModel.update(this.simHour, this.parkingSystem, this.drivers.length);
+
         // Hourly snapshots
         if (currentHour !== this.lastHour && currentHour > CONFIG.SIM_START_HOUR) {
             this.businessSystem.snapshotHour(this.lastHour >= 0 ? this.lastHour : currentHour);
             this.economics.snapshotHour(currentHour, this.parkingSystem.getStats());
+            this.trafficModel.snapshotHour(currentHour);
             this.lastHour = currentHour;
         }
 
@@ -229,6 +241,8 @@ export class Simulation {
         const bizResults = this.businessSystem.getResults();
         const econResults = this.economics.calculateResults(this.policy, bizResults);
         const forecast = EconomicsEngine.generateForecast(econResults);
+        const trafficResults = this.trafficModel.getResults();
+        const displacementResults = this.displacementModel.getResults();
 
         return {
             ...econResults,
@@ -243,7 +257,10 @@ export class Simulation {
                 id: c.id,
                 pcnsIssued: c.pcnsIssued.length,
                 totalPCNRevenue: c.pcnsIssued.reduce((s, p) => s + p.amount, 0)
-            }))
+            })),
+            // New model results
+            traffic: trafficResults,
+            displacement: displacementResults,
         };
     }
 
@@ -252,6 +269,8 @@ export class Simulation {
         this.parkingSystem.reset();
         this.businessSystem.reset();
         this.economics.reset();
+        this.trafficModel.reset();
+        this.displacementModel.reset();
         this.drivers = [];
         this.completedDrivers = [];
         this.events = [];

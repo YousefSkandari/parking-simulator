@@ -3,6 +3,7 @@
 
 import { Simulation } from './simulation.js';
 import { EconomicsEngine } from './economics.js';
+import { AdaptationModel } from './adaptation.js';
 import { CONFIG } from '../config.js';
 
 const DAY_SEQUENCE = {
@@ -36,10 +37,11 @@ export function getDaySequence(periodType, customDays) {
     return ['weekday'];
 }
 
-// Run a multi-day simulation for a single policy
+// Run a multi-day simulation for a single policy, with behavioral adaptation
 export function runMultiDay(area, policy, periodType, customDays, onProgress) {
     const days = getDaySequence(periodType, customDays);
     const dailyResults = [];
+    const adaptation = new AdaptationModel();
     let totalSeed = CONFIG.RANDOM_SEED;
 
     for (let i = 0; i < days.length; i++) {
@@ -55,10 +57,15 @@ export function runMultiDay(area, policy, periodType, customDays, onProgress) {
         result.dayLabel = `Day ${i + 1} (${days[i]})`;
         dailyResults.push(result);
 
+        // Feed results into adaptation model (drivers learn from experience)
+        adaptation.updateFromDayResults(result);
+
         if (onProgress) onProgress(i + 1, days.length);
     }
 
-    return aggregateResults(dailyResults, policy, days);
+    const aggregated = aggregateResults(dailyResults, policy, days);
+    aggregated.adaptation = adaptation.getResults();
+    return aggregated;
 }
 
 // Aggregate daily results into a period summary
@@ -173,6 +180,10 @@ function aggregateResults(dailyResults, policy, days) {
         ceoStats: dailyResults[n - 1].ceoStats,
         events: dailyResults[n - 1].events,
         area: dailyResults[0].area,
-        totalSimMinutes: dailyResults.reduce((s, r) => s + r.totalSimMinutes, 0)
+        totalSimMinutes: dailyResults.reduce((s, r) => s + r.totalSimMinutes, 0),
+
+        // Traffic and displacement from last day (representative)
+        traffic: dailyResults[n - 1].traffic,
+        displacement: dailyResults[n - 1].displacement,
     };
 }

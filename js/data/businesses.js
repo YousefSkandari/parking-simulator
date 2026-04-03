@@ -62,6 +62,18 @@ export const FOOTFALL_SENSITIVITY = {
     [T.GYM]: 0.1
 };
 
+// Revenue confidence levels for data quality transparency
+// VERIFIED: From company annual reports or Companies House filings
+// BENCHMARKED: From ONS/industry data for this business type, scaled to location
+// ESTIMATED: Best estimate based on comparable businesses, lower confidence
+export const CONFIDENCE = {
+    VERIFIED: 'verified',       // Company annual report / Companies House
+    BENCHMARKED: 'benchmarked', // ONS Annual Business Survey by SIC code
+    ESTIMATED: 'estimated',     // Rough estimate, limited data
+};
+
+const C = CONFIDENCE;
+
 // Peak hours by business type (when they get most of their trade)
 export const PEAK_HOURS = {
     [T.RESTAURANT]: { start: 12, end: 14, eveningStart: 18, eveningEnd: 21 },
@@ -155,6 +167,36 @@ export const BUSINESSES = {
     ]
 };
 
+// Revenue confidence mapping for each business
+// Chains with published annual reports: VERIFIED (revenue derived from total/store count)
+// ONS benchmark-based estimates: BENCHMARKED
+// Everything else: ESTIMATED
+const REVENUE_CONFIDENCE = {
+    // Verified from annual reports (revenue = national total / store count)
+    'Greggs': C.VERIFIED,           // Greggs plc Annual Report 2024: £2.01B / 2,618 = £767K
+    'Greggs Acton': C.VERIFIED,
+    'Costa Coffee': C.VERIFIED,     // Whitbread Annual Report: ~£430K/store
+    'Wagamama': C.VERIFIED,         // TRG plc filings
+    'Boots': C.VERIFIED,            // Walgreens Boots Alliance filings
+    'Boots Acton': C.VERIFIED,
+    'M&S (incl Food Hall)': C.VERIFIED,  // M&S Annual Report
+    'Primark': C.VERIFIED,          // ABF Annual Report
+
+    // Benchmarked from ONS Annual Business Survey / industry data
+    'H&M': C.BENCHMARKED, 'TK Maxx': C.BENCHMARKED, 'Next': C.BENCHMARKED,
+    'River Island': C.BENCHMARKED, 'JD Sports': C.BENCHMARKED,
+    'Decathlon': C.BENCHMARKED, 'Foot Locker': C.BENCHMARKED,
+    'Poundland': C.BENCHMARKED, 'Iceland': C.BENCHMARKED,
+    'Morrisons': C.BENCHMARKED, 'Lidl': C.BENCHMARKED,
+    'Tesco': C.BENCHMARKED, 'Tesco Express': C.BENCHMARKED,
+    'KFC Acton': C.BENCHMARKED, 'Argos': C.BENCHMARKED,
+};
+
+// Get confidence level for a business
+export function getRevenueConfidence(businessName) {
+    return REVENUE_CONFIDENCE[businessName] || C.ESTIMATED;
+}
+
 // Get total annual revenue for an area
 export function getAreaBaselineRevenue(area) {
     return BUSINESSES[area].reduce((sum, b) => sum + b.annualRevenue, 0);
@@ -163,4 +205,29 @@ export function getAreaBaselineRevenue(area) {
 // Get total employees for an area
 export function getAreaEmployees(area) {
     return BUSINESSES[area].reduce((sum, b) => sum + b.employees, 0);
+}
+
+// Get data quality summary for an area
+export function getDataQualitySummary(area) {
+    const businesses = BUSINESSES[area] || [];
+    let verified = 0, benchmarked = 0, estimated = 0;
+    let verifiedRevenue = 0, benchmarkedRevenue = 0, estimatedRevenue = 0;
+
+    for (const b of businesses) {
+        const conf = getRevenueConfidence(b.name);
+        if (conf === C.VERIFIED) { verified++; verifiedRevenue += b.annualRevenue; }
+        else if (conf === C.BENCHMARKED) { benchmarked++; benchmarkedRevenue += b.annualRevenue; }
+        else { estimated++; estimatedRevenue += b.annualRevenue; }
+    }
+
+    const total = businesses.length;
+    return {
+        total,
+        verified, benchmarked, estimated,
+        verifiedPercent: total > 0 ? (verified / total * 100) : 0,
+        benchmarkedPercent: total > 0 ? (benchmarked / total * 100) : 0,
+        estimatedPercent: total > 0 ? (estimated / total * 100) : 0,
+        verifiedRevenue, benchmarkedRevenue, estimatedRevenue,
+        overallConfidence: verified + benchmarked > estimated ? 'medium-high' : 'medium',
+    };
 }

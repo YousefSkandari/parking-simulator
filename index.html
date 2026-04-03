@@ -247,6 +247,52 @@
                 <div class="kpi-label">Lost Economic Impact</div>
                 <div class="kpi-value" id="kpi-lost-impact">—</div>
             </div>
+
+            <!-- Enforcement Cost KPIs -->
+            <div class="kpi-card">
+                <div class="kpi-label">CEO Enforcement Cost</div>
+                <div class="kpi-value" id="kpi-enforcement-cost">—</div>
+            </div>
+            <div class="kpi-card highlight">
+                <div class="kpi-label">Net Council Position</div>
+                <div class="kpi-value" id="kpi-net-council">—</div>
+            </div>
+            <div class="kpi-card">
+                <div class="kpi-label">Active CEO Shifts</div>
+                <div class="kpi-value" id="kpi-ceo-shifts">—</div>
+            </div>
+            <div class="kpi-card">
+                <div class="kpi-label">&nbsp;</div>
+                <div class="kpi-value">&nbsp;</div>
+            </div>
+
+            <!-- Traffic & Safety KPIs -->
+            <div class="kpi-card">
+                <div class="kpi-label">Avg Congestion</div>
+                <div class="kpi-value" id="kpi-congestion">—</div>
+            </div>
+            <div class="kpi-card">
+                <div class="kpi-label">Road Safety Score</div>
+                <div class="kpi-value" id="kpi-safety-score">—</div>
+            </div>
+            <div class="kpi-card">
+                <div class="kpi-label">Junctions at Risk</div>
+                <div class="kpi-value" id="kpi-junctions-risk">—</div>
+            </div>
+            <div class="kpi-card negative">
+                <div class="kpi-label">Congestion Cost</div>
+                <div class="kpi-value" id="kpi-congestion-cost">—</div>
+            </div>
+
+            <!-- Displacement KPIs -->
+            <div class="kpi-card negative">
+                <div class="kpi-label">Revenue Leaked to Competitors</div>
+                <div class="kpi-value" id="kpi-leaked-revenue">—</div>
+            </div>
+            <div class="kpi-card">
+                <div class="kpi-label">Displaced Drivers</div>
+                <div class="kpi-value" id="kpi-displacement">—</div>
+            </div>
         </div>
 
         <!-- Parking Distribution Bar -->
@@ -295,31 +341,53 @@
             <div class="methodology-content">
                 <div class="method-col">
                     <h4>Agent-Based Model</h4>
-                    <p>The simulator uses discrete-event agent-based modelling with 1-minute time resolution.
-                    Three agent types interact: <b>Drivers</b> (arriving based on footfall curves, making parking
-                    decisions based on utility scoring), <b>Civil Enforcement Officers</b> (patrolling DYL segments,
-                    issuing PCNs with realistic timing), and <b>Businesses</b> (tracking revenue from nearby footfall).</p>
+                    <p>Discrete-event agent-based modelling with 1-minute time resolution.
+                    Three agent types: <b>Drivers</b> (utility-scored parking decisions),
+                    <b>CEOs</b> (patrol routes, PCN issuance), <b>Businesses</b> (footfall-based revenue).</p>
 
                     <h4>Driver Decision Model</h4>
-                    <p>Each driver scores available parking options using: <code>utility = f(walking_distance, cost,
-                    PCN_risk, convenience)</code>. Three archetypes: Quick-stop (40%, 10-30min, £15 avg spend),
-                    Destination shopper (35%, 1-2hrs, £48 avg), Commuter (25%, 4-8hrs, £12 avg).
-                    Distribution based on TfL travel survey data for West London town centres.</p>
+                    <p>Each driver scores options using: <code>utility = f(walking_dist, cost,
+                    PCN_risk, convenience)</code>. Three archetypes: Quick-stop (40%), Destination (35%),
+                    Commuter (25%). Based on TfL travel survey data.</p>
+
+                    <h4>Traffic & Congestion Model</h4>
+                    <p>Road segments with capacity (vehicles/hr). Congestion via volume-to-capacity ratio
+                    with BPR speed formula. DYL-parked vehicles reduce effective road capacity by ~5% each.
+                    Congestion cost valued at £12.61/hr (DfT TAG data book 2024).</p>
+
+                    <h4>Road Safety Model</h4>
+                    <p>Junction sightline analysis: vehicles parked on DYLs within critical sightline distance
+                    of junctions generate risk scores (0-100). Higher risk on A-roads and near bus lanes.
+                    Safety score = 100 - average junction risk.</p>
                 </div>
                 <div class="method-col">
-                    <h4>Economic Model</h4>
-                    <p>Revenue chain: <code>Policy → Driver parking choices → Footfall at businesses →
-                    Revenue per business = baseline × footfall_ratio × dwell_time_factor</code>.
-                    Local economic multiplier of 1.4x per NEF methodology. PCN effective revenue accounts
-                    for 55% early payment rate, 12% appeal rate (35% success), and 8% write-off.</p>
+                    <h4>Economic & Displacement Model</h4>
+                    <p>Revenue chain: <code>Policy → Parking choices → Footfall → Business revenue</code>.
+                    1.4x local multiplier (NEF). Deterred drivers are modelled as going to competing centres
+                    (Westfield, Chiswick, Greenford, online) based on distance, attractiveness, and trip type.
+                    Revenue leaked to competitors is tracked separately.</p>
 
-                    <h4>Limitations</h4>
+                    <h4>Behavioral Adaptation</h4>
+                    <p>In multi-day simulations, drivers learn from aggregate experience via exponential
+                    moving average (EWA). High PCN rates → increased DYL avoidance. High deterrence →
+                    faster car park selection. Adaptation rate: 15% per day.</p>
+
+                    <h4>Walking Distance</h4>
+                    <p>Manhattan-hybrid routing: decomposes into N-S and E-W components, blends between
+                    straight-line and Manhattan distance based on route diagonality. Validated against
+                    Google Maps pedestrian routes for Ealing Broadway area.</p>
+
+                    <h4>Data Confidence</h4>
+                    <p>Business revenues flagged as: <b>Verified</b> (company annual reports — Greggs, Costa, M&S,
+                    Boots, Primark), <b>Benchmarked</b> (ONS ABS by SIC code), or <b>Estimated</b> (comparable businesses).
+                    All parking charges from Ealing Council published data.</p>
+
+                    <h4>Remaining Limitations</h4>
                     <ul>
-                        <li>Does not model traffic flow, congestion, or road safety impacts</li>
-                        <li>Walking distance uses Haversine × 1.3 (not actual pedestrian routing)</li>
-                        <li>Business revenues are estimates from ONS benchmarks, not actual accounts</li>
-                        <li>No long-term behavioral adaptation modelled beyond seasonal adjustment</li>
-                        <li>Single-area model — does not capture displacement to neighbouring centres</li>
+                        <li>Traffic model uses simplified road segments, not full network simulation</li>
+                        <li>No pedestrian safety modelling (only vehicle sightline analysis)</li>
+                        <li>Displacement model uses estimated attractiveness scores, not revealed preference data</li>
+                        <li>Some business revenues remain estimates where no public data exists</li>
                     </ul>
                 </div>
             </div>
