@@ -7,7 +7,7 @@ export const CAR_PARKS = {
         {
             id: 'CP-EBSC',
             name: 'Ealing Broadway Shopping Centre',
-            coords: [51.5125, -0.3025],
+            coords: [51.5122, -0.3035],  // Access from Oak Road (W5 5BL) / St Mary's Road
             capacityWeekday: 600,
             capacityWeekend: 800,
             openHours: '06:00-00:00',
@@ -25,7 +25,7 @@ export const CAR_PARKS = {
         {
             id: 'CP-DICK',
             name: 'Dickens Yard Car Park',
-            coords: [51.5118, -0.3045],
+            coords: [51.5118, -0.3055],  // Longfield Avenue, south of New Broadway
             capacityWeekday: 200,
             capacityWeekend: 200,
             openHours: '07:00-23:00',
@@ -42,7 +42,7 @@ export const CAR_PARKS = {
         {
             id: 'CP-FILI',
             name: 'Filmworks Car Park',
-            coords: [51.5130, -0.3050],
+            coords: [51.5133, -0.3065],  // New Broadway, west end
             capacityWeekday: 150,
             capacityWeekend: 150,
             openHours: '07:00-01:00',
@@ -58,7 +58,7 @@ export const CAR_PARKS = {
         {
             id: 'CP-SBRG',
             name: 'Springbridge Road MSCP',
-            coords: [51.5120, -0.3015],
+            coords: [51.5140, -0.3046],  // Spring Bridge Road, W5 2AB (near station)
             capacityWeekday: 465,   // 465 regular + 8 disabled + 9 motorcycle (Ealing Council data)
             capacityWeekend: 465,
             openHours: '07:00-18:00',  // Mon-Sun per ealing.gov.uk
@@ -76,12 +76,12 @@ export const CAR_PARKS = {
         }
     ],
 
-    // Car parks serving Uxbridge Road, Acton corridor
+    // Car parks serving Acton High Street
     actonTown: [
         {
             id: 'CP-MORR',
             name: 'Morrisons Acton Car Park',
-            coords: [51.5097, -0.2812],   // Near Horn Lane / western end of Uxbridge Road
+            coords: [51.5090, -0.2710],   // King Street / Horn Lane area, north of High Street
             capacityWeekday: 120,
             capacityWeekend: 120,
             openHours: '07:00-23:00',
@@ -98,7 +98,7 @@ export const CAR_PARKS = {
         {
             id: 'CP-SALI',
             name: 'Salisbury Street Car Park',
-            coords: [51.5082, -0.2748],   // Just south of Uxbridge Road
+            coords: [51.5060, -0.2690],   // South of High Street, off Salisbury Street W3 8NW
             capacityWeekday: 62,   // 62 regular + 4 disabled + 4 motorcycle (Ealing Council data)
             capacityWeekend: 62,
             openHours: '07:00-18:00',
@@ -115,7 +115,7 @@ export const CAR_PARKS = {
         {
             id: 'CP-LIDL',
             name: 'Lidl / Oaks Centre Car Park',
-            coords: [51.5094, -0.2792],   // Near western end
+            coords: [51.5070, -0.2690],   // The Oaks Shopping Centre, Acton High Street
             capacityWeekday: 60,
             capacityWeekend: 60,
             openHours: '07:00-22:00',

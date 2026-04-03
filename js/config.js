@@ -6,9 +6,9 @@ export const CONFIG = {
     TICK_MINUTES: 1,
 
     // Map defaults
-    MAP_CENTER: [51.5136, -0.3010], // Ealing Broadway
-    MAP_ZOOM: 15,
-    ACTON_CENTER: [51.5090, -0.2760],  // Uxbridge Road, Acton (near Town Hall)
+    MAP_CENTER: [51.5130, -0.3032], // Ealing Broadway Shopping Centre
+    MAP_ZOOM: 16,
+    ACTON_CENTER: [51.5069, -0.2686],  // Acton High Street (The Oaks Shopping Centre)
 
     // Walking parameters
     MAX_WALKING_DISTANCE_M: 400,

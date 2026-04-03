@@ -7,36 +7,34 @@ import { haversineDistance } from '../util/geo.js';
 // Road segment definitions with capacity (vehicles/hour)
 const ROAD_SEGMENTS = {
     ealingBroadway: [
-        { id: 'RS-EB01', name: 'The Broadway', coords: [[51.5135, -0.3025], [51.5145, -0.2975]], capacityPerHour: 800, lanes: 2, speedLimitMph: 20, type: 'high_street' },
-        { id: 'RS-EB02', name: 'Uxbridge Road (W)', coords: [[51.5150, -0.3010], [51.5158, -0.2970]], capacityPerHour: 1200, lanes: 2, speedLimitMph: 30, type: 'a_road' },
-        { id: 'RS-EB03', name: 'New Broadway', coords: [[51.5128, -0.3025], [51.5135, -0.3010]], capacityPerHour: 600, lanes: 1, speedLimitMph: 20, type: 'side_street' },
-        { id: 'RS-EB04', name: 'High Street', coords: [[51.5142, -0.2990], [51.5152, -0.2955]], capacityPerHour: 700, lanes: 2, speedLimitMph: 20, type: 'high_street' },
-        { id: 'RS-EB05', name: 'Spring Bridge Road', coords: [[51.5125, -0.3020], [51.5115, -0.3005]], capacityPerHour: 500, lanes: 1, speedLimitMph: 20, type: 'side_street' },
-        { id: 'RS-EB06', name: 'Haven Green', coords: [[51.5148, -0.3035], [51.5142, -0.3015]], capacityPerHour: 600, lanes: 1, speedLimitMph: 20, type: 'side_street' },
+        { id: 'RS-EB01', name: 'The Broadway', coords: [[51.5143, -0.3055], [51.5134, -0.3025]], capacityPerHour: 800, lanes: 2, speedLimitMph: 20, type: 'high_street' },
+        { id: 'RS-EB02', name: 'New Broadway', coords: [[51.5133, -0.3070], [51.5128, -0.3050]], capacityPerHour: 600, lanes: 1, speedLimitMph: 20, type: 'side_street' },
+        { id: 'RS-EB03', name: 'High Street', coords: [[51.5130, -0.3045], [51.5118, -0.3050]], capacityPerHour: 700, lanes: 2, speedLimitMph: 20, type: 'high_street' },
+        { id: 'RS-EB04', name: 'Spring Bridge Road', coords: [[51.5142, -0.3048], [51.5132, -0.3044]], capacityPerHour: 500, lanes: 1, speedLimitMph: 20, type: 'side_street' },
+        { id: 'RS-EB05', name: 'Haven Green', coords: [[51.5158, -0.3025], [51.5150, -0.3005]], capacityPerHour: 600, lanes: 1, speedLimitMph: 20, type: 'side_street' },
+        { id: 'RS-EB06', name: 'Mattock Lane', coords: [[51.5122, -0.3040], [51.5112, -0.3035]], capacityPerHour: 500, lanes: 1, speedLimitMph: 20, type: 'side_street' },
     ],
     actonTown: [
-        { id: 'RS-AT01', name: 'Uxbridge Road (E)', coords: [[51.5087, -0.2710], [51.5090, -0.2760]], capacityPerHour: 1400, lanes: 2, speedLimitMph: 30, type: 'a_road', hasBusLane: true },
-        { id: 'RS-AT02', name: 'Uxbridge Road (W)', coords: [[51.5090, -0.2760], [51.5095, -0.2820]], capacityPerHour: 1400, lanes: 2, speedLimitMph: 30, type: 'a_road', hasBusLane: true },
-        { id: 'RS-AT03', name: 'Horn Lane', coords: [[51.5095, -0.2810], [51.5105, -0.2825]], capacityPerHour: 600, lanes: 1, speedLimitMph: 20, type: 'side_street' },
-        { id: 'RS-AT04', name: 'Salisbury Street', coords: [[51.5085, -0.2745], [51.5078, -0.2752]], capacityPerHour: 400, lanes: 1, speedLimitMph: 20, type: 'side_street' },
-        { id: 'RS-AT05', name: 'The Vale', coords: [[51.5094, -0.2800], [51.5100, -0.2815]], capacityPerHour: 500, lanes: 1, speedLimitMph: 20, type: 'side_street' },
+        { id: 'RS-AT01', name: 'High Street (north)', coords: [[51.5086, -0.2668], [51.5072, -0.2680]], capacityPerHour: 600, lanes: 1, speedLimitMph: 20, type: 'high_street' },
+        { id: 'RS-AT02', name: 'High Street (south)', coords: [[51.5072, -0.2680], [51.5054, -0.2676]], capacityPerHour: 600, lanes: 1, speedLimitMph: 20, type: 'high_street' },
+        { id: 'RS-AT03', name: 'King Street', coords: [[51.5090, -0.2660], [51.5086, -0.2670]], capacityPerHour: 800, lanes: 2, speedLimitMph: 30, type: 'a_road' },
+        { id: 'RS-AT04', name: 'Uxbridge Road junction', coords: [[51.5054, -0.2676], [51.5052, -0.2690]], capacityPerHour: 1200, lanes: 2, speedLimitMph: 30, type: 'a_road', hasBusLane: true },
     ]
 };
 
 // Junction definitions with safety-critical DYL proximity
 const JUNCTIONS = {
     ealingBroadway: [
-        { id: 'JN-EB01', name: 'Broadway / New Broadway', coords: [51.5136, -0.3018], sightlineDistanceM: 15, criticalDYLs: ['DYL-EB01', 'DYL-EB02'] },
-        { id: 'JN-EB02', name: 'Broadway / High Street', coords: [51.5143, -0.2988], sightlineDistanceM: 12, criticalDYLs: ['DYL-EB05'] },
-        { id: 'JN-EB03', name: 'Haven Green junction', coords: [51.5149, -0.3025], sightlineDistanceM: 18, criticalDYLs: ['DYL-EB04'] },
-        { id: 'JN-EB04', name: 'Spring Bridge Rd junction', coords: [51.5124, -0.3016], sightlineDistanceM: 10, criticalDYLs: ['DYL-EB07'] },
-        { id: 'JN-EB05', name: 'Mattock Lane junction', coords: [51.5120, -0.3002], sightlineDistanceM: 12, criticalDYLs: ['DYL-EB09'] },
+        { id: 'JN-EB01', name: 'Broadway / New Broadway', coords: [51.5135, -0.3050], sightlineDistanceM: 15, criticalDYLs: ['DYL-EB01', 'DYL-EB02'] },
+        { id: 'JN-EB02', name: 'Broadway / High Street', coords: [51.5132, -0.3046], sightlineDistanceM: 12, criticalDYLs: ['DYL-EB05'] },
+        { id: 'JN-EB03', name: 'Haven Green junction', coords: [51.5152, -0.3012], sightlineDistanceM: 18, criticalDYLs: ['DYL-EB04'] },
+        { id: 'JN-EB04', name: 'Spring Bridge Rd / Broadway', coords: [51.5140, -0.3048], sightlineDistanceM: 10, criticalDYLs: ['DYL-EB06'] },
+        { id: 'JN-EB05', name: 'Mattock Lane / The Mall', coords: [51.5120, -0.3038], sightlineDistanceM: 12, criticalDYLs: ['DYL-EB09'] },
     ],
     actonTown: [
-        { id: 'JN-AT01', name: 'Uxbridge Rd / Town Hall', coords: [51.5088, -0.2715], sightlineDistanceM: 15, criticalDYLs: ['DYL-AT01'] },
-        { id: 'JN-AT02', name: 'Uxbridge Rd / Salisbury St', coords: [51.5090, -0.2748], sightlineDistanceM: 12, criticalDYLs: ['DYL-AT02', 'DYL-AT07'] },
-        { id: 'JN-AT03', name: 'Uxbridge Rd / Horn Lane', coords: [51.5095, -0.2808], sightlineDistanceM: 18, criticalDYLs: ['DYL-AT05'] },
-        { id: 'JN-AT04', name: 'Uxbridge Rd / The Vale', coords: [51.5094, -0.2803], sightlineDistanceM: 15, criticalDYLs: ['DYL-AT06'] },
+        { id: 'JN-AT01', name: 'High St / King St', coords: [51.5086, -0.2668], sightlineDistanceM: 15, criticalDYLs: ['DYL-AT01', 'DYL-AT05'] },
+        { id: 'JN-AT02', name: 'High St / Oaks Centre', coords: [51.5069, -0.2686], sightlineDistanceM: 12, criticalDYLs: ['DYL-AT02'] },
+        { id: 'JN-AT03', name: 'High St / Uxbridge Rd', coords: [51.5054, -0.2676], sightlineDistanceM: 18, criticalDYLs: ['DYL-AT04'] },
     ]
 };
 
