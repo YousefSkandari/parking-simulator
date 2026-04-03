@@ -152,6 +152,28 @@ class App {
                 }
             });
         }
+
+        // CEO salary controls
+        const salarySlider = document.getElementById('ceo-salary');
+        const salaryDisplay = document.getElementById('ceo-salary-val');
+        if (salarySlider) {
+            salarySlider.addEventListener('input', () => {
+                if (salaryDisplay) salaryDisplay.textContent = '£' + parseInt(salarySlider.value).toLocaleString();
+            });
+        }
+        const daysSlider = document.getElementById('ceo-days');
+        const daysDisplay = document.getElementById('ceo-days-val');
+        if (daysSlider) {
+            daysSlider.addEventListener('input', () => {
+                if (daysDisplay) daysDisplay.textContent = daysSlider.value;
+            });
+        }
+    }
+
+    _getCEODailyCost() {
+        const salary = parseInt(document.getElementById('ceo-salary')?.value) || 38000;
+        const days = parseInt(document.getElementById('ceo-days')?.value) || 250;
+        return Math.round(salary / days);
     }
 
     _getSelectedPolicies() {
@@ -230,7 +252,8 @@ class App {
                     area: this.currentArea,
                     dayType: this.currentDayType,
                     policy: policy,
-                    seed: CONFIG.RANDOM_SEED
+                    seed: CONFIG.RANDOM_SEED,
+                    ceoDailyCost: this._getCEODailyCost()
                 });
                 result = sim.runFull();
                 completedSteps += totalDays;
@@ -274,7 +297,8 @@ class App {
             area: this.currentArea,
             dayType: this.currentDayType,
             policy: policy,
-            seed: CONFIG.RANDOM_SEED
+            seed: CONFIG.RANDOM_SEED,
+            ceoDailyCost: this._getCEODailyCost()
         });
 
         this.isAnimating = true;
@@ -346,7 +370,8 @@ class App {
                 area: this.currentArea,
                 dayType: this.currentDayType,
                 policy: policy,
-                seed: CONFIG.RANDOM_SEED
+                seed: CONFIG.RANDOM_SEED,
+                ceoDailyCost: this._getCEODailyCost()
             });
             this.scenarioResults.push(sim.runFull());
         }

@@ -115,6 +115,26 @@
         </div>
 
         <div class="sidebar-section">
+            <h3>Council Cost Parameters</h3>
+            <div class="custom-controls">
+                <div class="custom-control">
+                    <label>CEO Annual Salary (incl. on-costs) <span class="custom-val" id="ceo-salary-val">£38,000</span></label>
+                    <input type="range" id="ceo-salary" min="25000" max="55000" value="38000" step="1000">
+                </div>
+                <div class="custom-control">
+                    <label>Working Days / Year <span class="custom-val" id="ceo-days-val">250</span></label>
+                    <input type="range" id="ceo-days" min="220" max="260" value="250" step="5">
+                </div>
+            </div>
+            <p style="font-size:10px; color:var(--text-light); margin-top:4px;">
+                CEO salary includes NI, pension, uniform, equipment.
+                Ealing Council pay band: ~£28K base + ~£10K on-costs.
+                Reducing enforcement intensity reduces the number of
+                active CEO shifts and therefore the council's salary outlay.
+            </p>
+        </div>
+
+        <div class="sidebar-section">
             <h3>Sensitivity Analysis</h3>
             <div class="custom-controls">
                 <div class="custom-control">

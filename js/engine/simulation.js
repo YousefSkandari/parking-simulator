@@ -21,6 +21,7 @@ export class Simulation {
         this.dayType = options.dayType || 'weekday';
         this.policy = options.policy;
         this.seed = options.seed || CONFIG.RANDOM_SEED;
+        this.ceoDailyCost = options.ceoDailyCost || 152;
 
         this.rng = new SeededRandom(this.seed);
         this.parkingSystem = new ParkingSystem(this.area);
@@ -239,7 +240,7 @@ export class Simulation {
 
     getResults() {
         const bizResults = this.businessSystem.getResults();
-        const econResults = this.economics.calculateResults(this.policy, bizResults);
+        const econResults = this.economics.calculateResults(this.policy, bizResults, this.ceoDailyCost);
         const forecast = EconomicsEngine.generateForecast(econResults);
         const trafficResults = this.trafficModel.getResults();
         const displacementResults = this.displacementModel.getResults();

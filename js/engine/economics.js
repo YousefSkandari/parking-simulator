@@ -75,15 +75,13 @@ export class EconomicsEngine {
     }
 
     // Calculate comprehensive economic results
-    calculateResults(policy, businessResults) {
+    calculateResults(policy, businessResults, ceoDailyCost) {
         const councilParkingRevenue = this.meterRevenue + this.carParkRevenue + this.pcnRevenue;
         this.businessRevenue = businessResults.totalRevenue;
 
-        // CEO enforcement costs
-        // Average CEO salary in London: ~£28,000/year (Ealing Council pay scales)
-        // With on-costs (NI, pension, uniform, equipment): ~£38,000/year
-        // Daily cost per CEO: £38,000 / 250 working days = £152/day
-        const CEO_DAILY_COST = 152;
+        // CEO enforcement costs (configurable via UI)
+        // Default: ~£38,000/year with on-costs / 250 working days = £152/day
+        const CEO_DAILY_COST = ceoDailyCost || 152;
         // Number of active CEO-shifts depends on enforcement intensity
         // Ealing Broadway: 5 CEO-shifts/day (2 morning, 2 afternoon, 1 evening)
         // Acton: 2 CEO-shifts/day
