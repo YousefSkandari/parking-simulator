@@ -57,10 +57,10 @@ export const CAR_PARKS = {
         },
         {
             id: 'CP-SBRG',
-            name: 'Springbridge Road Car Park',
+            name: 'Springbridge Road MSCP',
             coords: [51.5120, -0.3015],
-            capacityWeekday: 120,
-            capacityWeekend: 120,
+            capacityWeekday: 465,   // 465 regular + 8 disabled + 9 motorcycle (Ealing Council data)
+            capacityWeekend: 465,
             openHours: '07:00-22:00',
             rates: [
                 { maxHours: 1, charge: 1.50 },
@@ -108,6 +108,22 @@ export const CAR_PARKS = {
             type: 'surface',
             freeWithPurchase: true,
             freeMaxHours: 1
+        },
+        {
+            id: 'CP-SALI',
+            name: 'Salisbury Street Car Park',
+            coords: [51.5038, -0.2740],
+            capacityWeekday: 62,   // 62 regular + 4 disabled + 4 motorcycle (Ealing Council data)
+            capacityWeekend: 62,
+            openHours: '07:00-18:00',
+            rates: [
+                { maxHours: 1, charge: 1.25 },
+                { maxHours: 2, charge: 2.50 },
+                { maxHours: 4, charge: 5.00 },
+                { maxHours: 24, charge: 8.00 }
+            ],
+            access: 'Salisbury Street, W3 8NW',
+            type: 'surface'
         },
         {
             id: 'CP-ACTS',

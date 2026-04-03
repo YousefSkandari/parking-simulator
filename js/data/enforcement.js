@@ -33,15 +33,16 @@ export const ENFORCEMENT = {
             earlyPayment: 80,    // Within 14 days
             chargeDate: '2025-04-07'  // When new charges took effect
         },
-        // Band B: Less serious (meter expired, overstay)
+        // Band B: Less serious (meter expired, overstay) - updated April 2025
         bandB: {
-            fullCharge: 110,
-            earlyPayment: 55
+            fullCharge: 140,
+            earlyPayment: 70
         },
 
-        // Ealing borough-wide stats
-        annualPCNsBorough: 170000,  // ~170,000 per year total
-        dailyPCNsBorough: 465,
+        // Ealing borough-wide stats (2024 actuals from Ealing Council)
+        annualPCNsBorough: 142903,  // 142,903 in 2024 (up from 89,618 in 2023)
+        annualPCNRevenue: 5700000,  // £5.7M in 2024 (up 30% from 2023)
+        dailyPCNsBorough: 391,      // 142,903 / 365
 
         // Estimated for our areas
         dailyEstimate: {

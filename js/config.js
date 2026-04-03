@@ -32,8 +32,8 @@ export const CONFIG = {
     // PCN amounts (from April 2025 Ealing Council)
     PCN_HIGHER_RATE: 160,   // Band A - double yellow lines
     PCN_HIGHER_EARLY: 80,   // If paid within 14 days
-    PCN_LOWER_RATE: 110,    // Band B - meter overstay etc
-    PCN_LOWER_EARLY: 55,
+    PCN_LOWER_RATE: 140,    // Band B - meter overstay etc (updated April 2025)
+    PCN_LOWER_EARLY: 70,
 
     // On-street parking charges
     ONSTREET_RATE_PER_HOUR: 3.40,  // Ealing Broadway area
