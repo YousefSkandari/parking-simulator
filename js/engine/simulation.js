@@ -8,6 +8,7 @@ import { BusinessSystem } from './agent-business.js';
 import { EconomicsEngine } from './economics.js';
 import { TrafficModel } from './traffic.js';
 import { DisplacementModel } from './displacement.js';
+import { ThermodynamicModel } from './thermodynamic.js';
 import { createDriver, updateDriver, resetDriverIds, DRIVER_STATES } from './agent-driver.js';
 import { createCEO, updateCEO, generatePatrolRoutes, resetCeoIds } from './agent-ceo.js';
 import { PROFILE_DISTRIBUTION, PROFILE_DETAILS } from '../data/demographics.js';
@@ -29,6 +30,9 @@ export class Simulation {
         this.economics = new EconomicsEngine();
         this.trafficModel = new TrafficModel(this.area);
         this.displacementModel = new DisplacementModel(this.area);
+        this.thermoModel = new ThermodynamicModel({
+            temperature: options.temperature ?? 1.0
+        });
 
         this.simTime = 0;        // Minutes from start of day
         this.simHour = CONFIG.SIM_START_HOUR;
@@ -90,7 +94,7 @@ export class Simulation {
         // Update all active drivers
         for (let i = this.drivers.length - 1; i >= 0; i--) {
             const driver = this.drivers[i];
-            updateDriver(driver, this.simTime, this.parkingSystem, this.policy, this.rng, this.area);
+            updateDriver(driver, this.simTime, this.parkingSystem, this.policy, this.rng, this.area, this.thermoModel);
 
             // Record shopping visits for business revenue
             if (driver.state === DRIVER_STATES.SHOPPING && driver.parkingCoords) {
@@ -142,6 +146,8 @@ export class Simulation {
             this.businessSystem.snapshotHour(this.lastHour >= 0 ? this.lastHour : currentHour);
             this.economics.snapshotHour(currentHour, this.parkingSystem.getStats());
             this.trafficModel.snapshotHour(currentHour);
+            this.thermoModel.snapshotHour(currentHour, this.parkingSystem.getStats(),
+                this.driverCount > 0 ? (this.deterredCount() / Math.max(1, this.completedDrivers.length)) * 100 : 0);
             this.lastHour = currentHour;
         }
 
@@ -244,6 +250,7 @@ export class Simulation {
         const forecast = EconomicsEngine.generateForecast(econResults);
         const trafficResults = this.trafficModel.getResults();
         const displacementResults = this.displacementModel.getResults();
+        const thermoResults = this.thermoModel.getResults();
 
         return {
             ...econResults,
@@ -262,6 +269,7 @@ export class Simulation {
             // New model results
             traffic: trafficResults,
             displacement: displacementResults,
+            thermodynamics: thermoResults,
         };
     }
 
@@ -272,6 +280,7 @@ export class Simulation {
         this.economics.reset();
         this.trafficModel.reset();
         this.displacementModel.reset();
+        this.thermoModel.reset();
         this.drivers = [];
         this.completedDrivers = [];
         this.events = [];

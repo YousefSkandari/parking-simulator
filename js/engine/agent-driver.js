@@ -131,7 +131,8 @@ export function chooseParkingOption(driver, options, policy, rng) {
 }
 
 // Update driver state each tick
-export function updateDriver(driver, simTime, parkingSystem, policy, rng, area) {
+// thermoModel is optional — if provided, uses Boltzmann selection instead of heuristic
+export function updateDriver(driver, simTime, parkingSystem, policy, rng, area, thermoModel) {
     switch (driver.state) {
         case DRIVER_STATES.ARRIVING:
             driver.state = DRIVER_STATES.SEARCHING;
@@ -158,7 +159,10 @@ export function updateDriver(driver, simTime, parkingSystem, policy, rng, area) 
                 driver.profile
             );
 
-            const chosen = chooseParkingOption(driver, options, policy, rng);
+            // Use thermodynamic Boltzmann selection if model available, else heuristic
+            const chosen = thermoModel ?
+                thermoModel.selectOption(options, driver, policy, rng) :
+                chooseParkingOption(driver, options, policy, rng);
 
             if (chosen) {
                 const success = parkingSystem.parkVehicle(
